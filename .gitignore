@@ -1,3 +1,5 @@
+.DS_Store
+_mmServerScripts
 build/fullcalendar
 build/fullcalendar-*
 dist

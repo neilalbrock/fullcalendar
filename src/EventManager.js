@@ -47,12 +47,24 @@ function EventManager(options, eventSources) {
 	
 
 	function removeEventSource(source) {
+	    var remSource = source;
 		eventSources = $.grep(eventSources, function(src) {
-			return src != source;
+		    var checkRegex = /^(regex\:){1}(.+)$/i;
+		    if (checkRegex.test(source)) {
+		        var sourceRegex = new RegExp(checkRegex.exec(source)[2],'i');		        
+		        if (sourceRegex.test(src)) {
+		            remSource = src;
+		            return false;
+		        } else {
+		            return true;
+		        }
+		    } else {
+		        return src != source;
+		    }			
 		});
 		// remove all client events from that source
 		events = $.grep(events, function(e) {
-			return e.source != source;
+			return e.source != remSource;
 		});
 		rerenderEvents();
 	}
