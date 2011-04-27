@@ -49,6 +49,7 @@ function EventManager(options, eventSources) {
 	function removeEventSource(source) {
 	    var remSource = source;
 		eventSources = $.grep(eventSources, function(src) {
+		    // CHANGED: Added regex patterns for event source removal
 		    var checkRegex = /^(regex\:){1}(.+)$/i;
 		    if (checkRegex.test(source)) {
 		        var sourceRegex = new RegExp(checkRegex.exec(source)[2],'i');		        
